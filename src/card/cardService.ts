@@ -6,7 +6,7 @@ const url = "https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.
           headers: { Accept: "application/json" },
         });
         if (!response.ok) {
-          throw new Error("An error occured while listing people");
+          throw new Error("An error occured while listing the cards");
         }
         return response.json();
       }

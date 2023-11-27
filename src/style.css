@@ -1,4 +1,9 @@
 body{
-  background-image: url("./images/background.png");
-  background-size: 100%;
+  background-image: url("/images/background.png");
+}
+
+#logo{
+  height: 500px;
+  max-width: 100%;
+  filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0));
 }
