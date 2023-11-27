@@ -1,8 +1,7 @@
 import {card} from "./card.ts";
 const url = "https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json";
 
-export class cardService {
-    async getAll(): Promise<card[]> {
+ export async function getAll(): Promise<card[]> {
         const response = await fetch(url, {
           headers: { Accept: "application/json" },
         });
@@ -11,4 +10,3 @@ export class cardService {
         }
         return response.json();
       }
-}
