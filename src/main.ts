@@ -1,4 +1,5 @@
 import './style.css'
+import 'bootstrap';
 import {getAll} from "./card/cardService"
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
