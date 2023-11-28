@@ -5,13 +5,13 @@ import { card } from './card/card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
 const cards: card[] = [];
+const randomCard = RandomCard();
 
 async function init() {
     const cardTable = await getAll();
    for (const c of cardTable) {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
     }
-    console.log(cards);
     document.getElementById('gombID')?.addEventListener('click', getInputData);
 }
 
@@ -21,6 +21,12 @@ function getInputData(){
     kiir(a);
     inputData.value = "";
     
+}
+//Egy random Objectet kiválaszt
+async function RandomCard() {
+    const data = await getAll();
+    let randomIndex = Math.floor((Math.random() * data.length) );
+    return data[randomIndex];
 }
 async function kiir(name:string)
 {
@@ -45,5 +51,17 @@ async function kiir(name:string)
     });
     a.append(...DataTable);
 }
+function helpDesc()
+ {
+console.log(true);
+ }
+ function helpArena()
+ {
+    console.log(true);
+ }
+ function helpImg()
+ {
+    console.log(true);
+ }
 document.addEventListener('DOMContentLoaded', init)
 
