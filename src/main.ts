@@ -6,14 +6,19 @@ import { card } from './card/card';
 
 const cards: card[] = [];
 
- async function init() {
+async function init() {
     const cardTable = await getAll();
-    for (const c of cardTable) {
+   /* for (const c of cardTable) {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
     }
-    console.log(cards);
+    console.log(cards);*/
+    document.getElementById('gombID')?.addEventListener('click', getInputData);
 }
 
+function getInputData(){const inputData = (document.getElementById('inputUD') as HTMLInputElement).value;
+    kiir(inputData);
+    
+}
 async function kiir(name:string)
 {
     const a = document.getElementById('tbodyID') as HTMLInputElement;
@@ -40,10 +45,5 @@ async function kiir(name:string)
     });
     a.append(...DataTable);
 }
-document.addEventListener('DOMContentLoaded', () =>{
-    init();
-    const inputAdat = document.getElementById('inputUD') as HTMLInputElement;
-    const inputData = inputAdat.value;
-    const gombAdat = document.getElementById('gombID')!.addEventListener('click',kiir(inputData));
-})
+document.addEventListener('DOMContentLoaded', init)
 
