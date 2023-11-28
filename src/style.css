@@ -5,5 +5,16 @@ body{
 #logo{
   height: 500px;
   max-width: 100%;
+}
+
+#logo, button, input {
   filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0));
+}
+
+#icon {
+  height: 50px;
+  max-width: 100%;
+}
+.row {
+  margin-top: ;
 }
