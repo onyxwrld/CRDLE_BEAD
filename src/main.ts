@@ -11,17 +11,20 @@ async function init() {
     const cardTable = await getAll();
    for (const c of cardTable) {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
-    }
+   }
     document.getElementById('gombID')?.addEventListener('click', getInputData);
-}
+    const descElement = document.getElementById('descID')!.addEventListener('click', helpDesc);
+    const arenaElement = document.getElementById('arenaID')!.addEventListener('click', helpArena);
+    const imgElement = document.getElementById('imgID')!.addEventListener('click', helpImg);
+    }
 
 function getInputData(){
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value;
     kiir(a);
-    inputData.value = "";
-    
+    inputData.value = "";  
 }
+
 //Egy random Objectet kiválaszt
 async function RandomCard() {
     const data = await getAll();
@@ -51,6 +54,7 @@ async function kiir(name:string)
     });
     a.append(...DataTable);
 }
+
 function helpDesc()
  {
 console.log(true);
