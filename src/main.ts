@@ -5,7 +5,7 @@ import { card } from './card/card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
 const cards: card[] = [];
-const randomCard = RandomCard();
+const randomCard: card[] = [];
 
 async function init() {
     const cardTable = await getAll();
@@ -13,9 +13,11 @@ async function init() {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
    }
     document.getElementById('gombID')?.addEventListener('click', getInputData);
-    const descElement = document.getElementById('descID')!.addEventListener('click', helpDesc);
-    const arenaElement = document.getElementById('arenaID')!.addEventListener('click', helpArena);
-    const imgElement = document.getElementById('imgID')!.addEventListener('click', helpImg);
+    document.getElementById('descID')!.addEventListener('click', helpDesc);
+    document.getElementById('arenaID')!.addEventListener('click', helpArena);
+    document.getElementById('imgID')!.addEventListener('click', helpImg);
+    RandomCard();
+    console.log(randomCard);
     }
 
 function getInputData(){
@@ -28,8 +30,13 @@ function getInputData(){
 //Egy random Objectet kiválaszt
 async function RandomCard() {
     const data = await getAll();
-    let randomIndex = Math.floor((Math.random() * data.length) );
-    return data[randomIndex];
+    let randomIndex = Math.floor((Math.random() * data.length));
+    for (const c of data) {
+        if(randomIndex == c.id){
+            randomCard.push(c); 
+        }
+    }
+    return true;
 }
 async function kiir(name:string)
 {
@@ -58,11 +65,11 @@ async function kiir(name:string)
 
 function helpDesc()
  {
-console.log(true);
+console.log(randomCard[0].description);
  }
  function helpArena()
  {
-    console.log(true);
+    console.log(randomCard[0].arena);
  }
  function helpImg()
  {
