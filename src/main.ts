@@ -40,6 +40,7 @@ async function RandomCard() {
 }
 async function kiir(name:string)
 {
+    document.getElementById('theadID')!.style.visibility = 'visible';
     const a = document.getElementById('tbodyID') as HTMLInputElement;
     const data = await getAll();
     const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
