@@ -20,7 +20,7 @@ async function init() {
 
 function getInputData(){
     let inputData = document.getElementById('inputID') as HTMLInputElement;
-    const a = inputData.value;
+    const a = inputData.value.toLowerCase();
     kiir(a);
     inputData.value = "";  
 }
@@ -35,7 +35,7 @@ async function kiir(name:string)
 {
     const a = document.getElementById('tbodyID') as HTMLInputElement;
     const data = await getAll();
-    const DataTable = data.filter(x=>x.name === name).map((ab) =>{
+    const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
         const tr = document.createElement("tr");
         const nameCol = document.createElement("td");
         const arenaCol = document.createElement("td");
@@ -49,7 +49,8 @@ async function kiir(name:string)
         elixirCol.textContent = ab.elixir.toString();
         rarityCol.textContent = ab.rarity;
         descriptionCol.textContent = ab.description;
-        tr.append(...[nameCol, arenaCol, typeCol,elixirCol,rarityCol,descriptionCol]);
+        
+        tr.append(...[nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
     });
     a.append(...DataTable);
