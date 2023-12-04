@@ -18,10 +18,13 @@ async function init() {
     document.getElementById('imgID')!.addEventListener('click', helpImg);
     RandomCard();
     console.log(randomCard);
-    const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
-    document.getElementById('inputID')!.addEventListener('change',filterNames);
+    document.getElementById('inputID')!.addEventListener('input', changeInput);
     }
 
+function changeInput(){
+    const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
+    filterNames(inputValue);
+    }
 function getInputData(){
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value.toLowerCase();
