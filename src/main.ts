@@ -57,14 +57,16 @@ async function kiir(name:string)
         const elixirCol = document.createElement("td");
         const rarityCol = document.createElement("td");
         const descriptionCol = document.createElement("td");
-        imageCol.textContent = ab.id.toString();
+        const imgTag = document.createElement("img");
+        imageCol.append(imgTag);
+        imgTag.src = `/images/cards/card${ab.id}.jpg`;
         nameCol.textContent = ab.name;
         arenaCol.textContent = ab.arena.toString();
         typeCol.textContent = ab.type;
         elixirCol.textContent = ab.elixir.toString();
         rarityCol.textContent = ab.rarity;
         descriptionCol.textContent = ab.description;
-        tr.append(...[nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
+        tr.append(...[imageCol, nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
     });
     a.append(...DataTable);
