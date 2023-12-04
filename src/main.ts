@@ -18,8 +18,13 @@ async function init() {
     document.getElementById('imgID')!.addEventListener('click', helpImg);
     RandomCard();
     console.log(randomCard);
+    document.getElementById('inputID')!.addEventListener('input', changeInput);
     }
 
+function changeInput(){
+    const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
+    filterNames(inputValue);
+    }
 function getInputData(){
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value.toLowerCase();
@@ -57,7 +62,6 @@ async function kiir(name:string)
         elixirCol.textContent = ab.elixir.toString();
         rarityCol.textContent = ab.rarity;
         descriptionCol.textContent = ab.description;
-        
         tr.append(...[nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
     });
@@ -75,6 +79,23 @@ console.log(randomCard[0].description);
  function helpImg()
  {
     console.log(true);
+ }
+ function renderNames(arrayOfNames: card[]) {
+    let liElemet = "" ;
+    for (const i of arrayOfNames) {
+        liElemet += `<li>${i.name}</li>`
+    }
+    document.getElementById("list-container")!.innerHTML= liElemet;
+ }
+ function filterNames(event:string) {
+    var searchvalue = event;
+    var filterNames = cards.filter((v)=>{
+        return(v.name.includes(searchvalue));
+    })
+    renderNames(filterNames);
+
+    console.log(filterNames);
+    console.log(cards);
  }
 document.addEventListener('DOMContentLoaded', init)
 
