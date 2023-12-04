@@ -10,12 +10,12 @@ const randomCard: card[] = [];
 async function init() {
     const cardTable = await getAll();
    for (const c of cardTable) {
-        cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
+        cards.push(new card(c.id, c.name.toLowerCase(), c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
    }
    for (const c of cards) {
         c.guessed = false;
    }
-    document.getElementById('gombID')?.addEventListener('click', getInputData);
+    document.getElementById('gombID')!.addEventListener('click', getInputData);
     document.getElementById('descID')!.addEventListener('click', helpDesc);
     document.getElementById('arenaID')!.addEventListener('click', helpArena);
     document.getElementById('imgID')!.addEventListener('click', helpImg);
@@ -25,14 +25,15 @@ async function init() {
     }
 
 function changeInput(){
-    const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
+    const inputValue = ((document.getElementById('inputID') as HTMLInputElement).value).toLowerCase();
     filterNames(inputValue);
     }
+
 function getInputData(){
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value.toLowerCase();
     kiir(a);
-    inputData.value = "";  
+    inputData.value = "";
 }
 
 //Egy random Objectet kiválaszt
@@ -52,7 +53,8 @@ async function kiir(name:string)
     const a = document.getElementById('tbodyID') as HTMLInputElement;
     const data = await getAll();
     const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
-        
+        ab.guessed = true;
+        console.log(ab);
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
@@ -101,8 +103,8 @@ console.log(randomCard[0].description);
      const listContainer = document.getElementById("list-container") as HTMLUListElement;
      listContainer.textContent = '';
      for (const i of arrayOfNames) {
-         const liElement = document.createElement("li");
-         liElement.textContent = i.name;
+            const liElement = document.createElement("li");
+         liElement.textContent = i.name.toLowerCase();
          liElement.addEventListener('click', () => {
              autoFill(i.id);
          });
@@ -113,8 +115,12 @@ console.log(randomCard[0].description);
   function filterNames(event:string) {
      var searchvalue = event;
      var filterNames = cards.filter((v)=>{
-         return(v.name.includes(searchvalue));
+        if(v.guessed === false)
+        {
+            return(v.name.includes(searchvalue));
+        }
      })
+     
      renderNames(filterNames);
   }
 document.addEventListener('DOMContentLoaded', init)
