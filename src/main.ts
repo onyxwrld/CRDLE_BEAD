@@ -12,6 +12,9 @@ async function init() {
    for (const c of cardTable) {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
    }
+   for (const c of cards) {
+        c.guessed = false;
+   }
     document.getElementById('gombID')?.addEventListener('click', getInputData);
     document.getElementById('descID')!.addEventListener('click', helpDesc);
     document.getElementById('arenaID')!.addEventListener('click', helpArena);
@@ -26,9 +29,14 @@ function changeInput(){
     filterNames(inputValue);
     }
 function getInputData(){
+    var x = document.getElementById("list-container")!;
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value.toLowerCase();
     kiir(a);
+    document.getElementById('inputID')?.addEventListener('keypress', () => {
+        x.style.display = "block";
+    })
+    x.style.display = "none";
     inputData.value = "";  
 }
 
@@ -47,8 +55,11 @@ async function kiir(name:string)
 {
     document.getElementById('theadID')!.style.visibility = 'visible';
     const a = document.getElementById('tbodyID') as HTMLInputElement;
-    const data = await getAll();
-    const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
+    let id = 0;
+    const DataTable = cards.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
+        ab.guessed = true;
+        console.log(ab);
+        id = ab.id;
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
@@ -70,6 +81,7 @@ async function kiir(name:string)
         return tr;
     });
     a.append(...DataTable);
+    winCheck(id);
 }
 
 function helpDesc()
@@ -82,24 +94,43 @@ console.log(randomCard[0].description);
  }
  function helpImg()
  {
-    console.log(true);
+    console.log();
  }
- function renderNames(arrayOfNames: card[]) {
-    let liElemet = "" ;
-    for (const i of arrayOfNames) {
-        liElemet += `<li>${i.name}</li>`
-    }
-    document.getElementById("list-container")!.innerHTML= liElemet;
+ function autoFill(id: number)
+ {
+     for (const i of cards) {
+         if(id == i.id)
+         {
+             (document.getElementById('inputID') as HTMLInputElement).value = i.name;
+         }
+     }
  }
- function filterNames(event:string) {
-    var searchvalue = event;
-    var filterNames = cards.filter((v)=>{
-        return(v.name.includes(searchvalue));
-    })
-    renderNames(filterNames);
+  function renderNames(arrayOfNames: card[]) {
+     const listContainer = document.getElementById("list-container") as HTMLUListElement;
+     listContainer.textContent = '';
+     for (const i of arrayOfNames) {
+         const liElement = document.createElement("li");
+         liElement.textContent = i.name;
+         liElement.addEventListener('click', () => {
+             autoFill(i.id);
+         });
+         listContainer.appendChild(liElement);
+     }
+     
+  }
+  function filterNames(event:string) {
+     var searchvalue = event;
+     var filterNames = cards.filter((v)=>{
+            return(v.name.includes(searchvalue));
+        })
+     renderNames(filterNames);
+  }
 
-    console.log(filterNames);
-    console.log(cards);
- }
+  function winCheck(id: number) {
+    if(id == randomCard[0].id){
+        console.log("U WINNER!")
+    }
+}
+
 document.addEventListener('DOMContentLoaded', init)
 
