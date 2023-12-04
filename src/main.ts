@@ -12,6 +12,9 @@ async function init() {
    for (const c of cardTable) {
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
    }
+   for (const c of cards) {
+        c.guessed = false;
+   }
     document.getElementById('gombID')?.addEventListener('click', getInputData);
     document.getElementById('descID')!.addEventListener('click', helpDesc);
     document.getElementById('arenaID')!.addEventListener('click', helpArena);
@@ -49,6 +52,7 @@ async function kiir(name:string)
     const a = document.getElementById('tbodyID') as HTMLInputElement;
     const data = await getAll();
     const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
+        
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
