@@ -93,6 +93,9 @@ console.log(randomCard[0].description);
         return(v.name.includes(searchvalue));
     })
     renderNames(filterNames);
+
+    console.log(filterNames);
+    console.log(cards);
  }
 document.addEventListener('DOMContentLoaded', init)
 
