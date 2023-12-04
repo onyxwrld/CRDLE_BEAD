@@ -22,3 +22,7 @@ body{
 #theadID{
   visibility: collapse;
 }
+
+#help{
+  color: white;
+}
