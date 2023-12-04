@@ -84,22 +84,37 @@ console.log(randomCard[0].description);
  {
     console.log(true);
  }
- function renderNames(arrayOfNames: card[]) {
-    let liElemet = "" ;
-    for (const i of arrayOfNames) {
-        liElemet += `<li>${i.name}</li>`
-    }
-    document.getElementById("list-container")!.innerHTML= liElemet;
+ function autoFill(id: number)
+ {
+     for (const i of cards) {
+         if(id == i.id)
+         {
+             (document.getElementById('inputID') as HTMLInputElement).value = i.name;
+         }
+     }
  }
- function filterNames(event:string) {
-    var searchvalue = event;
-    var filterNames = cards.filter((v)=>{
-        return(v.name.includes(searchvalue));
-    })
-    renderNames(filterNames);
-
-    console.log(filterNames);
-    console.log(cards);
- }
+  function renderNames(arrayOfNames: card[]) {
+     const listContainer = document.getElementById("list-container") as HTMLUListElement;
+     listContainer.textContent = '';
+     for (const i of arrayOfNames) {
+         const liElement = document.createElement("li");
+         liElement.textContent = i.name;
+         liElement.addEventListener('click', () => {
+             autoFill(i.id);
+         });
+         listContainer.appendChild(liElement);
+     }
+     
+  }
+  function filterNames(event:string) {
+     var searchvalue = event;
+     var filterNames = cards.filter((v)=>{
+         return(v.name.includes(searchvalue));
+     })
+     renderNames(filterNames);
+ 
+     console.log(filterNames);
+     console.log(cards);
+  }
 document.addEventListener('DOMContentLoaded', init)
 
