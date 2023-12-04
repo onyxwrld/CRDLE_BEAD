@@ -1,28 +1,43 @@
-body{
+body {
   background-image: url("/images/background.png");
 }
 
-#logo{
+#logo {
   height: 500px;
   max-width: 100%;
 }
 
-#logo, button, input {
+#logo,
+button,
+input {
   filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0));
 }
 
-#icon,#descID,#arenaID,#imgID {
+#icon,
+#descID,
+#arenaID,
+#imgID {
   height: 50px;
   max-width: 100%;
 }
+
 .row {
   margin: 35px;
 }
 
-#theadID{
+#theadID {
   visibility: collapse;
 }
 
-#helpbuttons{
+#helpbuttons {
   color: white;
+}
+
+#table1 {
+  text-align: center;
+  vertical-align: middle;
+}
+
+#table1 img {
+  max-width: 30%;
 }
