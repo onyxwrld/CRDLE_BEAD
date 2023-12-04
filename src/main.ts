@@ -55,9 +55,11 @@ async function kiir(name:string)
 {
     document.getElementById('theadID')!.style.visibility = 'visible';
     const a = document.getElementById('tbodyID') as HTMLInputElement;
-    const data = await getAll();
-    const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
-        
+    let id = 0;
+    const DataTable = cards.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
+        ab.guessed = true;
+        console.log(ab);
+        id = ab.id;
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
@@ -79,6 +81,7 @@ async function kiir(name:string)
         return tr;
     });
     a.append(...DataTable);
+    winCheck(id);
 }
 
 function helpDesc()
@@ -91,7 +94,7 @@ console.log(randomCard[0].description);
  }
  function helpImg()
  {
-    console.log(true);
+    console.log();
  }
  function autoFill(id: number)
  {
@@ -122,5 +125,12 @@ console.log(randomCard[0].description);
         })
      renderNames(filterNames);
   }
+
+  function winCheck(id: number) {
+    if(id == randomCard[0].id){
+        console.log("U WINNER!")
+    }
+}
+
 document.addEventListener('DOMContentLoaded', init)
 
