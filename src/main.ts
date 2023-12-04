@@ -50,12 +50,14 @@ async function kiir(name:string)
     const data = await getAll();
     const DataTable = data.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
         const tr = document.createElement("tr");
+        const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
         const arenaCol = document.createElement("td");
         const typeCol = document.createElement("td");
         const elixirCol = document.createElement("td");
         const rarityCol = document.createElement("td");
         const descriptionCol = document.createElement("td");
+        imageCol.textContent = ab.id.toString();
         nameCol.textContent = ab.name;
         arenaCol.textContent = ab.arena.toString();
         typeCol.textContent = ab.type;
