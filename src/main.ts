@@ -54,7 +54,7 @@ async function RandomCard() {
 async function kiir(name:string)
 {
     document.getElementById('theadID')!.style.visibility = 'visible';
-    const a = document.getElementById('tbodyID') as HTMLInputElement;
+    const tableBody = document.getElementById('tbodyID') as HTMLTableRowElement;
     let id = 0;
     const DataTable = cards.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
         ab.guessed = true;
@@ -132,7 +132,7 @@ async function kiir(name:string)
         tr.append(...[imageCol, nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
     });
-    a.append(...DataTable);
+    tableBody.insertBefore(DataTable[0],tableBody.firstChild);
     winCheck(id);
 }
 
