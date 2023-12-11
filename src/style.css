@@ -67,3 +67,8 @@ input {
 .incorrect{
   background-image: url("../images/incorrect.png");
 }
+
+#helpBekezdes{
+  color: white;
+  filter: drop-shadow(0 0 0.75rem rgb(0, 0, 0));
+}

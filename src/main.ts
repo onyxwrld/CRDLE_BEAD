@@ -138,14 +138,20 @@ async function kiir(name:string)
 
 function helpDesc()
  {
+    (document.getElementById("helpKep") as HTMLImageElement).src = "";
+    document.getElementById("helpBekezdes")!.textContent = (randomCard[0].description);
     console.log(randomCard[0].description);
  }
  function helpArena()
  {
+    (document.getElementById("helpKep") as HTMLImageElement).src = "";
+    document.getElementById("helpBekezdes")!.textContent = "A kártya a " + (randomCard[0].arena).toString() + ". arénában található.";
     console.log(randomCard[0].arena);
  }
  function helpImg()
  {
+    document.getElementById("helpBekezdes")!.textContent = null;
+    (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards/card${randomCard[0].id}.jpg`);
     console.log();
  }
  function autoFill(id: number)
