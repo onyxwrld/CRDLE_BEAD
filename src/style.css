@@ -36,10 +36,11 @@ input {
 #table1 {
   text-align: center;
   vertical-align: middle;
+  table-layout: auto;
 }
 
 #table1 img {
-  max-width: 30%;
+  max-width:30%;
 }
 
 #list-container{
@@ -47,4 +48,22 @@ input {
   text-align: left;
   list-style-type: none;
   margin: 0;
+}
+
+.type{
+  box-shadow: none !important;   
+  background-size: cover;
+  background-position: center;
+}
+.down{
+  background-image: url("../images/incorrectDown.png");
+}
+.up{
+  background-image: url("../images/incorrectUP.png");
+}
+.correct{
+  background-image: url("../images/correctStat.png");
+}
+.incorrect{
+  background-image: url("../images/incorrect.png");
 }

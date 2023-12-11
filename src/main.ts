@@ -1,5 +1,5 @@
-import './style.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import './style.css';
 import {getAll} from "./card/cardService";
 import { card } from './card/card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
@@ -72,10 +72,62 @@ async function kiir(name:string)
         imageCol.append(imgTag);
         imgTag.src = `/images/cards/card${ab.id}.jpg`;
         nameCol.textContent = ab.name;
+        if(randomCard[0].name != ab.name)
+        {
+            nameCol.classList.add("type");
+            nameCol.classList.add("incorrect");
+        }
+        else{
+            typeCol.classList.add("type");
+            typeCol.classList.add("correct");
+        }
         arenaCol.textContent = ab.arena.toString();
+        if(randomCard[0].arena > ab.arena){
+            arenaCol.classList.add("type");
+            arenaCol.classList.add("up");
+        }
+        else if(randomCard[0].arena < ab.arena)
+        {
+            arenaCol.classList.add("type");
+            arenaCol.classList.add("down");
+        }
+        else{
+            arenaCol.classList.add("type");
+            arenaCol.classList.add("correct");
+        }
         typeCol.textContent = ab.type;
+        if(randomCard[0].type != ab.type){
+            typeCol.classList.add("type");
+            typeCol.classList.add("incorrect");
+        }
+        else{
+            typeCol.classList.add("type");
+            typeCol.classList.add("correct");
+        }
         elixirCol.textContent = ab.elixir.toString();
+        if(randomCard[0].elixir > ab.elixir){
+            elixirCol.classList.add("type");
+            elixirCol.classList.add("up");
+        }
+        else if(randomCard[0].elixir < ab.elixir)
+        {
+            elixirCol.classList.add("type");
+            elixirCol.classList.add("down");
+        }
+        else{
+            elixirCol.classList.add("type");
+            elixirCol.classList.add("correct");
+        }
         rarityCol.textContent = ab.rarity;
+        if(randomCard[0].rarity != ab.rarity)
+        {
+            rarityCol.classList.add("type");
+            rarityCol.classList.add("incorrect");
+        }
+        else{
+            rarityCol.classList.add("type");
+            rarityCol.classList.add("correct");
+        }
         descriptionCol.textContent = ab.description;
         tr.append(...[imageCol, nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
@@ -131,6 +183,11 @@ function helpDesc()
         console.log("U WINNER!")
     }
 }
+function gameMechanic(todaysCard: card,selectedCard: card)
+{
+    if(todaysCard.arena > selectedCard.arena){
 
+    }
+}
 document.addEventListener('DOMContentLoaded', init)
 
