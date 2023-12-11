@@ -86,7 +86,7 @@ async function kiir(name:string)
 
 function helpDesc()
  {
-console.log(randomCard[0].description);
+    console.log(randomCard[0].description);
  }
  function helpArena()
  {
@@ -119,9 +119,9 @@ console.log(randomCard[0].description);
      
   }
   function filterNames(event:string) {
-     var searchvalue = event;
+     var searchvalue = event.toLowerCase();
      var filterNames = cards.filter((v)=>{
-            return(v.name.includes(searchvalue));
+            return(v.name.toLowerCase().includes(searchvalue));
         })
      renderNames(filterNames);
   }
