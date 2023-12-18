@@ -221,6 +221,9 @@ function helpDesc()
         document.getElementById("helpBekezdes")!.textContent = "A mai kártyát sikeresen kitaláltad!";
         document.getElementById('gombID')!.setAttribute('disabled', '');
         document.getElementById('inputID')!.setAttribute('disabled', '');
+        document.getElementById('descID')!.setAttribute('disabled', '');
+        document.getElementById('arenaID')!.setAttribute('disabled', '');
+        document.getElementById('imgID')!.setAttribute('disabled', '');
     }
 }
 /*function gameMechanic(todaysCard: card,selectedCard: card)
