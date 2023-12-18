@@ -4,20 +4,25 @@ import {getAll} from "./card/cardService";
 import { card } from './card/card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
+//egy tömb ami kártya objektumokat tárol el.
 const cards: card[] = [];
+//egy tömb ami a [0] indexén egy random kártyát tárol el.
 const randomCard: card[] = [];
+
+let guessCounter: number = 0;
 
 async function init() {
     const cardTable = await getAll();
    for (const c of cardTable) {
+        c.guessed = false;
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
    }
-   for (const c of cards) {
-        c.guessed = false;
-   }
-    document.getElementById('gombID')?.addEventListener('click', getInputData);
+    document.getElementById('gombID')!.addEventListener('click', getInputData);
+    //document.getElementById('descID')!.setAttribute('disabled', '');
     document.getElementById('descID')!.addEventListener('click', helpDesc);
+    //document.getElementById('arenaID')!.setAttribute('disabled', '');
     document.getElementById('arenaID')!.addEventListener('click', helpArena);
+    //document.getElementById('imgID')!.setAttribute('disabled', '');
     document.getElementById('imgID')!.addEventListener('click', helpImg);
     RandomCard();
     console.log(randomCard);
@@ -29,6 +34,7 @@ function changeInput(){
     filterNames(inputValue);
     }
 function getInputData(){
+    //guessHelper;
     var x = document.getElementById("list-container")!;
     let inputData = document.getElementById('inputID') as HTMLInputElement;
     const a = inputData.value.toLowerCase();
@@ -136,23 +142,45 @@ async function kiir(name:string)
     winCheck(id);
 }
 
+/*function guessHelper(){
+    guessCounter++;
+    if(guessCounter >= 5){
+        document.getElementById('descID')!.removeAttribute("disabled");
+        document.getElementById('descID')!.addEventListener('click', helpDesc);
+    }
+    if(guessCounter >= 10)
+    {
+        document.getElementById('arenaID')!.removeAttribute("disabled");
+        document.getElementById('arenaID')!.addEventListener('click', helpArena);
+    }
+    if(guessCounter >= 20)
+    {
+        document.getElementById('imgID')!.removeAttribute("disabled");
+        document.getElementById('imgID')!.addEventListener('click', helpImg);
+    }
+}*/
 function helpDesc()
  {
-    (document.getElementById("helpKep") as HTMLImageElement).src = "";
-    document.getElementById("helpBekezdes")!.textContent = (randomCard[0].description);
-    console.log(randomCard[0].description);
+    //if (guessCounter >= 5){
+        (document.getElementById("helpKep") as HTMLImageElement).src = "";
+        document.getElementById("helpBekezdes")!.textContent = (randomCard[0].description);
+        console.log(randomCard[0].description);
+   // }
  }
  function helpArena()
  {
-    (document.getElementById("helpKep") as HTMLImageElement).src = "";
-    document.getElementById("helpBekezdes")!.textContent = "A kártya a " + (randomCard[0].arena).toString() + ". arénában található.";
-    console.log(randomCard[0].arena);
+    //if(guessCounter >= 10){
+        (document.getElementById("helpKep") as HTMLImageElement).src = "";
+        document.getElementById("helpBekezdes")!.textContent = "A kártya a " + (randomCard[0].arena).toString() + ". arénában található.";
+        console.log(randomCard[0].arena);
+    //}
  }
  function helpImg()
  {
-    document.getElementById("helpBekezdes")!.textContent = null;
-    (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
-    console.log();
+    //if(guessCounter >= 20){
+        document.getElementById("helpBekezdes")!.textContent = null;
+        (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
+    //}
  }
  function autoFill(id: number)
  {
@@ -188,8 +216,11 @@ function helpDesc()
 
   function winCheck(id: number) {
     if(id == randomCard[0].id){
-        console.log("U WINNER!")
-        
+        console.log("U WINNER!");
+        (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
+        document.getElementById("helpBekezdes")!.textContent = "A mai kártyát sikeresen kitaláltad!";
+        document.getElementById('gombID')!.setAttribute('disabled', '');
+        document.getElementById('inputID')!.setAttribute('disabled', '');
     }
 }
 /*function gameMechanic(todaysCard: card,selectedCard: card)
