@@ -189,6 +189,7 @@ function helpDesc()
   function winCheck(id: number) {
     if(id == randomCard[0].id){
         console.log("U WINNER!")
+        
     }
 }
 /*function gameMechanic(todaysCard: card,selectedCard: card)
