@@ -1,11 +1,38 @@
+/**
+ * card típus meghatározása. 
+ */
 export class card{
+  /**
+   * card típus elsődleges kulcsa az id.
+   */
   id: number;
+  /**
+   * card típus neve.
+   */
   name: string;
+  /**
+   * card típus változója mely meghatározza hanyadik arénától lehet elérni a kártyát.
+   */
   arena: number;
+  /**
+   * változó, mely meghatározza a kártya típusát.
+   */
   type: string;
+  /**
+   * változó, mely meghatározza a kártya értékét elixírben.
+   */
   elixir: number;
+  /**
+   * változó, mely meghatározza a kártya ritkaságát.
+   */
   rarity: string;
+  /**
+   * változó, mely meghatározza a kártya leírását.
+   */
   description: string;
+  /**
+   * változó, mely meghatározza, hogy a felhasználó tippelt-e már a kártyára
+   */
   guessed: boolean;
     constructor(
       id: number,

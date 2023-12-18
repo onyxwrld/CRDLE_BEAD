@@ -9,10 +9,18 @@ const cards: card[] = [];
 //egy tömb ami a [0] indexén egy random kártyát tárol el.
 const randomCard: card[] = [];
 
-let guessCounter: number = 0;
-
-async function init() {
+//let guessCounter: number = 0;
+/**
+ * inicializálja az alap komponenseket
+ */
+export async function init() {
+    /**
+     * cardTable nevű objektum, mely eltárolja az összes kártyát amit az adatbázisból lekértünk.
+     */
     const cardTable = await getAll();
+    /**
+     * for ciklus, mely végig cardTable összes objektumán és hozzáadja egy cards nevű listához, miközben a guessed adattagot false értékre állítja.
+     */
    for (const c of cardTable) {
         c.guessed = false;
         cards.push(new card(c.id, c.name, c.arena, c.type, c.elixir, c.rarity, c.description, c.guessed));
@@ -24,22 +32,34 @@ async function init() {
     document.getElementById('arenaID')!.addEventListener('click', helpArena);
     //document.getElementById('imgID')!.setAttribute('disabled', '');
     document.getElementById('imgID')!.addEventListener('click', helpImg);
-    RandomCard();
-    console.log(randomCard);
     document.getElementById('inputID')!.addEventListener('input', changeInput);
+    /**
+     * randomCard függvény meghívása.
+     */
+    RandomCard();
+    /**
+     * hibakeresés
+     */
+    console.log(randomCard);
     }
 
-function changeInput(){
+    /**
+     * A függvény figyeli a bemeneti mező változását és meghívja a filterNames függvényt.
+     */
+export function changeInput(){
     const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
     filterNames(inputValue);
     }
-function getInputData(){
+
+/**
+ * A függvény lekéri az input mező
+ */
+export function getInputData(){
     //guessHelper;
     var x = document.getElementById("list-container")!;
-    let inputData = document.getElementById('inputID') as HTMLInputElement;
-    const a = inputData.value.toLowerCase();
-    kiir(a);
-    document.getElementById('inputID')?.addEventListener('keypress', () => {
+    let inputData = (document.getElementById('inputID') as HTMLInputElement);
+    kiir(inputData.value.toLowerCase());
+    document.getElementById('inputID')!.addEventListener('keypress', () => {
         x.style.display = "block";
     })
     x.style.display = "none";
