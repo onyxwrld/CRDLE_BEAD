@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import './style.css';
-import {getAll} from "./card/cardService";
-import { card } from './card/card';
+import {getAll} from "./cardService";
+import { card } from './card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
 /**

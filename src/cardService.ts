@@ -1,3 +1,6 @@
+/**
+ * @module cardService
+ */
 import {card} from "./card.ts";
 /**
  * url nevű változó, mely eltárolja a globálisan futó firebase adatbázis url-ét.

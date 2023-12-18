@@ -1,4 +1,5 @@
 /**
+ * @module card
  * card típus meghatározása. 
  */
 export class card{
