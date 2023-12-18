@@ -168,10 +168,12 @@ function helpDesc()
      listContainer.textContent = '';
      for (const i of arrayOfNames) {
          const liElement = document.createElement("li");
+         if(i.guessed != true){
          liElement.textContent = i.name;
          liElement.addEventListener('click', () => {
              autoFill(i.id);
          });
+        }
          listContainer.appendChild(liElement);
      }
      
