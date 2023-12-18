@@ -4,10 +4,14 @@ import {getAll} from "./card/cardService";
 import { card } from './card/card';
 //https://frontend-dle-db-default-rtdb.europe-west1.firebasedatabase.app/.json
 
-//egy tömb ami kártya objektumokat tárol el.
-const cards: card[] = [];
-//egy tömb ami a [0] indexén egy random kártyát tárol el.
-const randomCard: card[] = [];
+/**
+ * egy lista ami kártya objektumokat tárol el.
+ */
+export const cards: card[] = [];
+/**
+ * egy tömb ami a [0] indexén egy random kártyát tárol el.
+ */
+export const randomCard: card[] = [];
 
 //let guessCounter: number = 0;
 /**
@@ -44,7 +48,7 @@ export async function init() {
     }
 
     /**
-     * A függvény figyeli a bemeneti mező változását és meghívja a filterNames függvényt.
+     * A függvény figyeli a bemeneti mező változását és meghívja a filterNames függvényt, melynek átadja inputValue értékét.
      */
 export function changeInput(){
     const inputValue = (document.getElementById('inputID') as HTMLInputElement).value;
@@ -52,7 +56,7 @@ export function changeInput(){
     }
 
 /**
- * A függvény lekéri az input mező
+ * A függvény lekéri az input mező értékét es tovább adja a kiir függvénynek, majd a keresési listát határozza meg egy arrow function.
  */
 export function getInputData(){
     //guessHelper;
@@ -66,7 +70,10 @@ export function getInputData(){
     inputData.value = "";  
 }
 
-//Egy random Objectet kiválaszt
+/**
+ * Sorsol egy random kártyát amit eltárol egy tömb [0] indexén.
+ * @returns true.
+ */
 async function RandomCard() {
     const data = await getAll();
     let randomIndex = Math.floor((Math.random() * data.length));
@@ -77,15 +84,41 @@ async function RandomCard() {
     }
     return true;
 }
-async function kiir(name:string)
+
+/**
+ * Függvény, mely megjeleníti a táblázatot, majd összehasonlítja a tippelt kártyát a random kártyával ezután az összehasonlítás alapján megformázza a html oldalt.
+ * @param name A felhasználó által tippelt kártya neve.
+ */
+export async function kiir(name:string)
 {
+    /**
+     * Láthatóvá teszi a táblázat fejlécét.
+     */
     document.getElementById('theadID')!.style.visibility = 'visible';
+
+    /**
+     * tableBody változó deklarálása és inicializálása.
+     */
     const tableBody = document.getElementById('tbodyID') as HTMLTableRowElement;
+
+    /**
+     * lokális id változó deklarálása és inicializálása.
+     */
     let id = 0;
-    const DataTable = cards.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((ab) =>{
-        ab.guessed = true;
-        console.log(ab);
-        id = ab.id;
+
+    /**
+     * DataTable objektum, mely a cards listát filtereli és a kártyák nevét lowerCase-li, majd kiválaszt egy objektumot a guess változóba, majd ezek alapján összehasonlítja a randomCard [0] objektumával és ez alapján formázza az oldalt.
+     */
+    const DataTable = cards.filter(x=>x.name.toLowerCase() === name.toLowerCase()).map((guess) =>{
+        /**
+         * A tippelt kártya guessed adattagját true-ra állítja.
+         */
+        guess.guessed = true;
+        console.log(guess);
+        /**
+         * A korábban deklarált id változó megkapja a tippelt kártya id-ját értékül.
+         */
+        id = guess.id;
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
@@ -96,22 +129,22 @@ async function kiir(name:string)
         const descriptionCol = document.createElement("td");
         const imgTag = document.createElement("img");
         imageCol.append(imgTag);
-        imgTag.src = `/images/cards+/${ab.name}.png`;
-        nameCol.textContent = ab.name;
-        if(randomCard[0].name != ab.name)
+        imgTag.src = `/images/cards+/${guess.name}.png`;
+        nameCol.textContent = guess.name;
+        if(randomCard[0].name != guess.name)
         {
             imageCol.append(imgTag);
-            imgTag.src = `/images/cards+/${ab.name}.png`;
+            imgTag.src = `/images/cards+/${guess.name}.png`;
             imageCol.classList.add("type");
             imageCol.classList.add("incorrect");
         }
         else{
             imageCol.append(imgTag);
-            imgTag.src = `/images/cards+/${ab.name}.png`;
+            imgTag.src = `/images/cards+/${guess.name}.png`;
             imageCol.classList.add("type");
             imageCol.classList.add("correct");
         }
-        if(randomCard[0].name != ab.name)
+        if(randomCard[0].name != guess.name)
         {
             nameCol.classList.add("type");
             nameCol.classList.add("incorrect");
@@ -120,12 +153,12 @@ async function kiir(name:string)
             nameCol.classList.add("type");
             nameCol.classList.add("correct");
         }
-        arenaCol.textContent = ab.arena.toString();
-        if(randomCard[0].arena > ab.arena){
+        arenaCol.textContent = guess.arena.toString();
+        if(randomCard[0].arena > guess.arena){
             arenaCol.classList.add("type");
             arenaCol.classList.add("up");
         }
-        else if(randomCard[0].arena < ab.arena)
+        else if(randomCard[0].arena < guess.arena)
         {
             arenaCol.classList.add("type");
             arenaCol.classList.add("down");
@@ -134,8 +167,8 @@ async function kiir(name:string)
             arenaCol.classList.add("type");
             arenaCol.classList.add("correct");
         }
-        typeCol.textContent = ab.type;
-        if(randomCard[0].type != ab.type){
+        typeCol.textContent = guess.type;
+        if(randomCard[0].type != guess.type){
             typeCol.classList.add("type");
             typeCol.classList.add("incorrect");
         }
@@ -143,12 +176,12 @@ async function kiir(name:string)
             typeCol.classList.add("type");
             typeCol.classList.add("correct");
         }
-        elixirCol.textContent = ab.elixir.toString();
-        if(randomCard[0].elixir > ab.elixir){
+        elixirCol.textContent = guess.elixir.toString();
+        if(randomCard[0].elixir > guess.elixir){
             elixirCol.classList.add("type");
             elixirCol.classList.add("up");
         }
-        else if(randomCard[0].elixir < ab.elixir)
+        else if(randomCard[0].elixir < guess.elixir)
         {
             elixirCol.classList.add("type");
             elixirCol.classList.add("down");
@@ -157,8 +190,8 @@ async function kiir(name:string)
             elixirCol.classList.add("type");
             elixirCol.classList.add("correct");
         }
-        rarityCol.textContent = ab.rarity;
-        if(randomCard[0].rarity != ab.rarity)
+        rarityCol.textContent = guess.rarity;
+        if(randomCard[0].rarity != guess.rarity)
         {
             rarityCol.classList.add("type");
             rarityCol.classList.add("incorrect");
@@ -167,11 +200,17 @@ async function kiir(name:string)
             rarityCol.classList.add("type");
             rarityCol.classList.add("correct");
         }
-        descriptionCol.textContent = ab.description;
+        descriptionCol.textContent = guess.description;
         tr.append(...[imageCol, nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
         return tr;
     });
+    /**
+     * A table-nek mindig a legfelső sorába töltse be az adatokat.
+     */
     tableBody.insertBefore(DataTable[0],tableBody.firstChild);
+    /**
+     * Meghívja a winCheck függvényt és átadja neki az id változó értékét.
+     */
     winCheck(id);
 }
 
@@ -192,7 +231,11 @@ async function kiir(name:string)
         document.getElementById('imgID')!.addEventListener('click', helpImg);
     }
 }*/
-function helpDesc()
+
+/**
+ * Az 1. helpImage, kattintáskor lefutó függvénye, mely a randomCard [0] leírását jeleníti meg.
+ */
+export function helpDesc()
  {
     //if (guessCounter >= 5){
         (document.getElementById("helpKep") as HTMLImageElement).src = "";
@@ -200,7 +243,11 @@ function helpDesc()
         console.log(randomCard[0].description);
    // }
  }
- function helpArena()
+
+/**
+ * A 2. helpImage, kattintáskor lefutó függvénye, mely a randomCard [0] arénáját jeleníti meg.
+ */
+ export function helpArena()
  {
     //if(guessCounter >= 10){
         (document.getElementById("helpKep") as HTMLImageElement).src = "";
@@ -208,46 +255,69 @@ function helpDesc()
         console.log(randomCard[0].arena);
     //}
  }
- function helpImg()
+
+/**
+ * A 3. helpImage, kattintáskor lefutó függvénye, mely a randomCard [0] képét jeleníti meg.
+ */
+ export function helpImg()
  {
     //if(guessCounter >= 20){
         document.getElementById("helpBekezdes")!.textContent = null;
         (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
     //}
  }
- function autoFill(id: number)
+
+/**
+ * Kiválasztja a megkapott id alapján a cards listát és betölti az input mezőbe az értékét.
+ * @param id amit a renderNames függvény ad át neki.
+ */
+ export function autoFill(id: number)
  {
-     for (const i of cards) {
-         if(id == i.id)
+     for (const c of cards) {
+         if(id == c.id)
          {
-             (document.getElementById('inputID') as HTMLInputElement).value = i.name;
+             (document.getElementById('inputID') as HTMLInputElement).value = c.name;
          }
      }
  }
-  function renderNames(arrayOfNames: card[]) {
+
+/**
+ * A függvény kirendereli a listát, ami alapján be lehet tölteni a kereséső mezőt.
+ * @param arrayOfCards A filterNames függvényből kapja meg a kártyák listáját.
+ */
+ export function renderNames(arrayOfCards: card[]) {
      const listContainer = document.getElementById("list-container") as HTMLUListElement;
      listContainer.textContent = '';
-     for (const i of arrayOfNames) {
+     for (const c of arrayOfCards) {
          const liElement = document.createElement("li");
-         if(i.guessed != true){
-         liElement.textContent = i.name;
+         if(c.guessed != true){
+         liElement.textContent = c.name;
          liElement.addEventListener('click', () => {
-             autoFill(i.id);
+             autoFill(c.id);
          });
         }
          listContainer.appendChild(liElement);
      }
      
   }
-  function filterNames(event:string) {
-     var searchvalue = event.toLowerCase();
-     var filterNames = cards.filter((v)=>{
+
+/**
+ * A cards listából kikeresi azt a kártyát, melynek a neve egyenlő a paraméter nevével, és objektumként átadja a renderNames függvénynek.
+ * @param name Megkap egy stringet amiben a tippelt kártya neve van. 
+ */
+  export function filterNames(name: string) {
+     let searchvalue = name.toLowerCase();
+     let filterNames = cards.filter((v)=>{
             return(v.name.toLowerCase().includes(searchvalue));
         })
      renderNames(filterNames);
   }
 
-  function winCheck(id: number) {
+/**
+ * Ha a paraméterId megegyezik a randomCard[0].id-val akkor letiltja az input mezőt es a guess gombot.
+ * @param id Paraméterként kap egy id-t.
+ */
+ export function winCheck(id: number) {
     if(id == randomCard[0].id){
         console.log("U WINNER!");
         (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
@@ -265,5 +335,9 @@ function helpDesc()
 
     }
 }*/
+
+/**
+ * Az index.html dokumentum betöltése után meghívja az init függvényt. 
+ */
 document.addEventListener('DOMContentLoaded', init)
 
