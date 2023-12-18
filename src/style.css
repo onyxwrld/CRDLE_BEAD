@@ -43,6 +43,16 @@ input {
   max-width:30%;
 }
 
+#tableCards img {
+  max-width:30%;
+}
+
+#tableCards{
+  text-align: center;
+  vertical-align: middle;
+  table-layout: auto;
+}
+
 #list-container{
   background-color: white;
   text-align: left;

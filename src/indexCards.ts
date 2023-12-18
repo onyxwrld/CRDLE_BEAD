@@ -23,8 +23,12 @@ export async function init(){
 }
 
 export function createTable(){
+    
+    document.getElementById('tableHeadID')!.style.visibility = 'visible';
+    const tableBody = document.getElementById('tableID') as HTMLTableRowElement;
+
     for (const card of cards) {
-        console.log(card);
+        console.log(card);    
         const tr = document.createElement("tr");
         const imageCol = document.createElement("td");
         const nameCol = document.createElement("td");
@@ -43,7 +47,9 @@ export function createTable(){
         rarityCol.textContent = card.rarity;
         descriptionCol.textContent = card.description;
         tr.append(...[imageCol, nameCol, arenaCol, typeCol,elixirCol,rarityCol,]);
+        tableBody.append(tr);
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', init);
