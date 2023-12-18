@@ -62,7 +62,9 @@ input {
   background-image: url("../images/incorrectUP.png");
 }
 .correct{
+  background-color: green;
   background-image: url("../images/correctStat.png");
+
 }
 .incorrect{
   background-image: url("../images/incorrect.png");

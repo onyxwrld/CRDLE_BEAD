@@ -80,12 +80,25 @@ async function kiir(name:string)
         nameCol.textContent = ab.name;
         if(randomCard[0].name != ab.name)
         {
+            imageCol.append(imgTag);
+            imgTag.src = `/images/cards+/${ab.name}.png`;
+            imageCol.classList.add("type");
+            imageCol.classList.add("incorrect");
+        }
+        else{
+            imageCol.append(imgTag);
+            imgTag.src = `/images/cards+/${ab.name}.png`;
+            imageCol.classList.add("type");
+            imageCol.classList.add("correct");
+        }
+        if(randomCard[0].name != ab.name)
+        {
             nameCol.classList.add("type");
             nameCol.classList.add("incorrect");
         }
         else{
-            typeCol.classList.add("type");
-            typeCol.classList.add("correct");
+            nameCol.classList.add("type");
+            nameCol.classList.add("correct");
         }
         arenaCol.textContent = ab.arena.toString();
         if(randomCard[0].arena > ab.arena){
