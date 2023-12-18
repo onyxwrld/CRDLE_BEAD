@@ -70,7 +70,7 @@ async function kiir(name:string)
         const descriptionCol = document.createElement("td");
         const imgTag = document.createElement("img");
         imageCol.append(imgTag);
-        imgTag.src = `/images/cards/card${ab.id}.jpg`;
+        imgTag.src = `/images/cards+/${ab.name}.png`;
         nameCol.textContent = ab.name;
         if(randomCard[0].name != ab.name)
         {
@@ -151,7 +151,7 @@ function helpDesc()
  function helpImg()
  {
     document.getElementById("helpBekezdes")!.textContent = null;
-    (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards/card${randomCard[0].id}.jpg`);
+    (document.getElementById("helpKep") as HTMLImageElement).src = (`../images/cards+/${randomCard[0].name}.png`);
     console.log();
  }
  function autoFill(id: number)
@@ -191,11 +191,11 @@ function helpDesc()
         console.log("U WINNER!")
     }
 }
-function gameMechanic(todaysCard: card,selectedCard: card)
+/*function gameMechanic(todaysCard: card,selectedCard: card)
 {
     if(todaysCard.arena > selectedCard.arena){
 
     }
-}
+}*/
 document.addEventListener('DOMContentLoaded', init)
 
